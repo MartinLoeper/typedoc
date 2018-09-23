@@ -126,7 +126,11 @@ export class PackagePlugin extends ConverterComponent {
         }
 
         if (this.packageFile) {
+          try {
             project.packageInfo = JSON.parse(FS.readFileSync(this.packageFile, 'utf-8'));
+          } catch(e) {
+            console.log("Cannot load package.json from: " + this.packageFile);
+          }
             if (!project.name) {
                 project.name = project.packageInfo.name;
             }
